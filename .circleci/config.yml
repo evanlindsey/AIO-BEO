@@ -1,8 +1,22 @@
 version: 2.1
+
 orbs:
   node: circleci/node@4.1.0
+
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: "14.15.4"
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm test
+      - store_test_results:
+          path: test-results
+
 workflows:
-  node-tests:
+  newman-and-monitor:
     jobs:
-      - node/test:
-          version: 14.15.4
+      - test
