@@ -1,0 +1,26 @@
+{
+  "name": "aio-beo",
+  "version": "1.0.0",
+  "description": "aio-beo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanlindsey/AIO-BEO.git"
+  },
+  "author": "Evan Lindsey",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha --require esm",
+    "test-monitor": "mocha \"./test/monitor.spec.js\" --require esm",
+    "test-newman": "mocha \"./test/newman.spec.js\" --require esm"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chai": "^4.2.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.2.1",
+    "newman": "^5.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0"
+  }
+}
