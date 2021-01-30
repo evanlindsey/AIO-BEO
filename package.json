@@ -18,7 +18,9 @@
     "chai": "^4.2.0",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
-    "newman": "^5.2.2"
+    "mocha-multi-reporters": "^1.5.1",
+    "newman": "^5.2.2",
+    "newman-reporter-htmlextra": "^1.20.1"
   },
   "devDependencies": {
     "eslint": "^7.17.0"
