@@ -11,7 +11,8 @@
   "scripts": {
     "test": "mocha --require esm",
     "test-monitor": "mocha \"./test/monitor.spec.js\" --require esm",
-    "test-newman": "mocha \"./test/newman.spec.js\" --require esm"
+    "test-newman": "mocha \"./test/newman.spec.js\" --require esm",
+    "test-parallel": "mocha \"./test-parallel/*.spec.js\" --require esm --parallel"
   },
   "dependencies": {
     "axios": "^0.21.1",
