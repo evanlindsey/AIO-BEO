@@ -11,7 +11,7 @@ const resultsDir = `${process.cwd()}/test-results/newman`;
 
 export const executeNewman = async (collectionId) => {
     const collectionUrl = `${collectionApi}/${collectionId}?apikey=${apiKey}`;
-    const htmlReport = `${resultsDir}/html-results-${collectionId}.html`;
+    const htmlReport = `${resultsDir}/newman-results-${collectionId}.html`;
 
     return new Promise(resolve => {
         newman.run({

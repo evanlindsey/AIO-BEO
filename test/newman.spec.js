@@ -11,8 +11,7 @@ if (!apiKey) {
 }
 
 const collectionUrl = `https://api.getpostman.com/collections/${collectionId}?apikey=${apiKey}`;
-const junitReport = `${process.cwd()}/test-results/newman/junit-results.xml`;
-const htmlReport = `${process.cwd()}/test-results/newman/html-results.html`;
+const htmlReport = `${process.cwd()}/test-results/newman/newman-results.html`;
 
 describe('Run Newman Collection', function () {
     let runData;
@@ -21,9 +20,8 @@ describe('Run Newman Collection', function () {
         await new Promise(resolve => {
             newman.run({
                 collection: collectionUrl,
-                reporters: ['cli', 'junit', 'htmlextra'],
+                reporters: ['cli', 'htmlextra'],
                 reporter: {
-                    junit: { export: junitReport },
                     htmlextra: { export: htmlReport }
                 }
             }).on('start', (err) => {
