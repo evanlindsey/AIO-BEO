@@ -14,9 +14,9 @@ jobs:
       - run:
           command: npm test
       - store_test_results:
-          path: test-results
+          path: test-results/mocha
       - store_artifacts:
-          path: test-results/newman/html-results.html
+          path: test-results/newman/newman-results.html
 
 workflows:
   newman-and-monitor:
