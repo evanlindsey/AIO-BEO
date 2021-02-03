@@ -19,8 +19,8 @@ describe('Run Monitor Collection', function () {
         console.log('STARTING MONITOR');
         const response = await axios.post(monitorUrl, {});
 
-        expect(response.status).to.equal(200);
-        expect(response.statusText).to.equal('OK');
+        expect(response.status, 'State should be 200').to.equal(200);
+        expect(response.statusText, 'Status text should be OK').to.equal('OK');
 
         runData = response.data.run;
         for (const entry of runData.executions) {
@@ -38,7 +38,7 @@ describe('Run Monitor Collection', function () {
         const failed = runData.stats.requests.failed;
         console.log(`FAILED REQUESTS: ${failed}`);
 
-        expect(failed).to.equal(0);
+        expect(failed, 'Failed requests should be: 0').to.equal(0);
     });
 
     it('should fail 0 assertions', function () {
@@ -48,6 +48,6 @@ describe('Run Monitor Collection', function () {
         const failed = runData.stats.assertions.failed;
         console.log(`FAILED ASSERTIONS: ${failed}`);
 
-        expect(failed).to.equal(0);
+        expect(failed, 'Failed assertions should be: 0').to.equal(0);
     });
 });

@@ -20,10 +20,10 @@ export const executeNewman = async (collectionId) => {
             reporter: {
                 htmlextra: { export: htmlReport }
             }
-        }).on('start', (err) => {
-            expect(err).to.be.null;
-        }).on('done', (err, summary) => {
-            expect(err).to.be.null;
+        }).on('start', (error) => {
+            expect(error, 'Error should be null').to.be.null;
+        }).on('done', (error, summary) => {
+            expect(error, 'Error should be null').to.be.null;
             resolve(summary.run);
         });
     });
@@ -31,5 +31,5 @@ export const executeNewman = async (collectionId) => {
 
 export const expectFailedBelowTolerance = (data, tolerance) => {
     tolerance = Number.parseInt(tolerance);
-    expect(data.failed).to.be.below(tolerance);
+    expect(data.failed, `Failed assertions should be below: ${tolerance}`).to.be.below(tolerance);
 };

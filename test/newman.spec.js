@@ -24,11 +24,11 @@ describe('Run Newman Collection', function () {
                 reporter: {
                     htmlextra: { export: htmlReport }
                 }
-            }).on('start', (err) => {
-                expect(err).to.be.null;
+            }).on('start', (error) => {
+                expect(error, 'Error should be null').to.be.null;
                 console.log('STARTING COLLECTION');
-            }).on('done', (err, summary) => {
-                expect(err).to.be.null;
+            }).on('done', (error, summary) => {
+                expect(error, 'Error should be null').to.be.null;
                 resolve(summary.run);
             });
         });
@@ -41,7 +41,7 @@ describe('Run Newman Collection', function () {
         const failed = runData.stats.requests.failed;
         console.log(`FAILED REQUESTS: ${failed}`);
 
-        expect(failed).to.equal(0);
+        expect(failed, 'Failed requests should be: 0').to.equal(0);
     });
 
     it('should fail 0 assertions', function () {
@@ -51,6 +51,6 @@ describe('Run Newman Collection', function () {
         const failed = runData.stats.assertions.failed;
         console.log(`FAILED ASSERTIONS: ${failed}`);
 
-        expect(failed).to.equal(0);
+        expect(failed, 'Failed assertions should be: 0').to.equal(0);
     });
 });
