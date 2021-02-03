@@ -38,17 +38,58 @@ export PM_MONITOR_ID=***
 npm test
 npm run test-newman
 npm run test-monitor
+npm run test-parallel
 ```
 
-## Circle CI
+## Invoke Monitor
 
-[Circle CI - Setting Environment Variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project)
+```javascript
+// Post Request to Monitor API
+const response = await axios.post(
+  `https://api.getpostman.com/monitors/${monitorId}/run?apikey=${apiKey}`,
+  {}
+);
 
-![Circle CI Env Vars](./screenshots/circle_ci_env_vars.png)
+// Format and Log Response
+runData = response.data.run;
+for (const entry of runData.executions) {
+  const req = entry.request;
+  const res = entry.response;
+  console.log(`\n${entry.item.name}`);
+  console.log(
+    `${req.method} ${req.url} [${res.code}, ${res.responseSize}B, ${res.responseTime}ms]`
+  );
+}
+```
+
+## Invoke Newman
+
+```javascript
+// Await Newman Response as Promise
+await new Promise((resolve, reject) => {
+  newman
+    .run({
+      collection: `https://api.getpostman.com/collections/${collectionId}?apikey=${apiKey}`,
+      reporters: ["cli"],
+    })
+    .on("done", (error, summary) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(summary);
+    });
+});
+```
+
+## CircleCI
+
+[CircleCI - Setting Environment Variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project)
+
+![CircleCI Env Vars](./screenshots/circle_ci_env_vars.png)
 
 ### Configuration
 
-[Circle CI - Workflows Configuration Examples](https://circleci.com/docs/2.0/workflows/#workflows-configuration-examples)
+[CircleCI - Workflows Configuration Examples](https://circleci.com/docs/2.0/workflows/#workflows-configuration-examples)
 
 [.circleci/config.yml](.circleci/config.yml)
 
@@ -79,8 +120,42 @@ workflows:
       - test
 ```
 
-## Test Libraries
+## Reporting
 
-[Newman](https://github.com/postmanlabs/newman)
+### Monitor Dashboard (Postman)
 
-[Mocha](https://github.com/mochajs/mocha)
+![Monitor Dashboard](./screenshots/monitor_dashboard.png)
+
+### Mocha JUnit (CircleCI)
+
+![Mocha JUnit](./screenshots/mocha_junit.png)
+
+### Newman Artifact (CircleCI)
+
+![Newman Artifact](./screenshots/newman_artifact.png)
+
+### Newman htmlextra
+
+![Newman htmlextra](./screenshots/newman_htmlextra.png)
+
+## NPM Packages
+
+### Test Libraries
+
+[https://github.com/postmanlabs/newman](https://github.com/postmanlabs/newman)
+
+[https://github.com/mochajs/mocha](https://github.com/mochajs/mocha)
+
+### Reporters
+
+[https://github.com/DannyDainton/newman-reporter-htmlextra](https://github.com/DannyDainton/newman-reporter-htmlextra)
+
+[https://github.com/stanleyhlng/mocha-multi-reporters](https://github.com/stanleyhlng/mocha-multi-reporters)
+
+### Utilities
+
+[https://github.com/standard-things/esm](https://github.com/standard-things/esm)
+
+[https://github.com/axios/axios](https://github.com/axios/axios)
+
+[https://github.com/chaijs/chai](https://github.com/chaijs/chai)

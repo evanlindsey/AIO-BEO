@@ -17,7 +17,7 @@ describe('Run Newman Collection', function () {
     let runData;
 
     it('should run the collection successfully', async function () {
-        await new Promise(resolve => {
+        runData = await new Promise(resolve => {
             newman.run({
                 collection: collectionUrl,
                 reporters: ['cli', 'htmlextra'],
@@ -29,8 +29,7 @@ describe('Run Newman Collection', function () {
                 console.log('STARTING COLLECTION');
             }).on('done', (err, summary) => {
                 expect(err).to.be.null;
-                runData = summary.run;
-                resolve();
+                resolve(summary.run);
             });
         });
     });
